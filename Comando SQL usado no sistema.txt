@@ -1,0 +1,16 @@
+show databases; -> mostra todas as bases de dados. 
+
+create database dbinfox; -> Cria a base de dados.
+
+use dbinfox -> seleciona o banco de dados que você vai trabalhar.
+
+create table tbusuarios(
+	iduser int primary key,
+    usuario varchar(50) not null,
+    fone varchar(15),
+    login varchar(15) not null unique,
+    senha varchar(15) not null
+); ----------------------------> comando usado para criar a tabela de usuários.
+
+
+describe tbusuarios; ----> descreve uma tabela mostrando seus campos.
