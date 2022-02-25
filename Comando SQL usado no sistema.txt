@@ -14,3 +14,12 @@ create table tbusuarios(
 
 
 describe tbusuarios; ----> descreve uma tabela mostrando seus campos.
+
+insert into tbusuarios(iduser, usuario, fone, login, senha) values (1, 'João Paulo', 62984733123, 'jp', 123); -> inserindo dados na tabela.
+
+update tbusuarios set fone= '8888888' where iduser = 2; -> atualizando dados de um campo de um usuário.
+
+select * from tbusuarios; -> Seleciona uma tabela mostransdo todos seus campos. 
+
+delete from tbusuarios where iduser = 3; -> Deletando um dado na tabela
+
