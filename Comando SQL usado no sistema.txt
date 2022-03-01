@@ -23,3 +23,27 @@ select * from tbusuarios; -> Seleciona uma tabela mostransdo todos seus campos.
 
 delete from tbusuarios where iduser = 3; -> Deletando um dado na tabela
 
+create table tbclientes(
+    idcli int primary key auto_increment,
+    nomecli varchar(50) not null,
+    endcli varchar(50),
+    fonecli varchar(50) not null,
+    emailcli varchar(50)
+); ---------------------> criação da tabela de clientes; 	
+
+insert into tbclientes(nomecli, endcli, fonecli, emailcli ) values ('João Paulo', 'Grupirara, Porangatu', '(62) 9 8473-3124', 'joaopaulomorais2@gmail.com'); -----> inserindo dados na tabela clientes OBS: o campo id e auto inclement por isso foi omitido.
+
+create table tbos(
+	os int primary key auto_increment,
+    data_os timestamp default current_timestamp,
+    equipamento varchar(150) not null,
+    defeito varchar(150) not null,
+	servico varchar(150),
+    tecnico varchar(30),
+    valor decimal (10,2),
+    idcli int not null,
+    foreign key(idcli) references tbclientes(idcli)
+); ---------> cria a tabela os. 
+
+-------> data_os timestamp default current_timestamp = preenche o campo automaticamente com data e hora do servidor.
+-------> foreign key(idcli) references tbclientes(idcli) = define o campo de chave estrangeira.
