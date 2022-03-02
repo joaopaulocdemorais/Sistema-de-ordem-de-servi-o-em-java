@@ -47,3 +47,11 @@ create table tbos(
 
 -------> data_os timestamp default current_timestamp = preenche o campo automaticamente com data e hora do servidor.
 -------> foreign key(idcli) references tbclientes(idcli) = define o campo de chave estrangeira.
+
+
+select
+O.os, equipamento, defeito, servico, valor,
+C.nomecli, fonecli
+from tbos as O
+inner join tbclientes as C 
+on (O.idcli = C.idcli); ----> cria uma saida dados juntando as duas tabelas.

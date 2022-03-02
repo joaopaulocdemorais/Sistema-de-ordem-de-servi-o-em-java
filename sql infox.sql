@@ -51,3 +51,13 @@ create table tbos(
 
 describe tbos; 
 
+insert into tbos(equipamento, defeito, servico, tecnico, valor, idcli) values('Pc Positivo','Marca','Trocar equipamento','João Paulo',1000.00,'1');
+
+select * from tbos;
+
+select
+O.os, equipamento, defeito, servico, valor,
+C.nomecli, fonecli
+from tbos as O
+inner join tbclientes as C 
+on (O.idcli = C.idcli);
