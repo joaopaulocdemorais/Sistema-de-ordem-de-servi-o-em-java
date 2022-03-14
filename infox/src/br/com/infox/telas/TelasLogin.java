@@ -5,17 +5,23 @@
  */
 package br.com.infox.telas;
 
+import java.sql.*;
+import br.com.infox.dal.ModuloConexao;
 /**
  *
  * @author Java
  */
 public class TelasLogin extends javax.swing.JFrame {
-
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
     /**
      * Creates new form TelasLogin
      */
     public TelasLogin() {
         initComponents();
+        conexao = ModuloConexao.conector();
+        System.out.println(conexao);
     }
 
     /**
