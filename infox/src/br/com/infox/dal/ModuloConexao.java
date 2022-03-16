@@ -18,6 +18,8 @@ public class ModuloConexao {
            conexao = DriverManager.getConnection(url, user, password);
            return conexao;
        } catch (Exception e) {
+           //a linha baixo serve de apoio para saber qual e o erro
+           
             //System.out.println(e);
            return null;
        }   
