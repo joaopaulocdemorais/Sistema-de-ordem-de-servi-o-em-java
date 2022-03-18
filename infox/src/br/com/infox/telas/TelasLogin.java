@@ -23,7 +23,7 @@ public class TelasLogin extends javax.swing.JFrame {
         conexao = ModuloConexao.conector();
         //a linha abaixo serve de apoio ao status de conexão
         if (conexao != null ){
-            lblStatus.setIcon();
+            lblStatus.setText("Conectado");
         }else{
             lblStatus.setText("Erro no db");
         }
