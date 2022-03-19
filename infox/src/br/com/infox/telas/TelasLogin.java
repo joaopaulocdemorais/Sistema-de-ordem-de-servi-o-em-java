@@ -7,6 +7,7 @@ package br.com.infox.telas;
 
 import java.sql.*;
 import br.com.infox.dal.ModuloConexao;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Java
@@ -15,6 +16,28 @@ public class TelasLogin extends javax.swing.JFrame {
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+    
+    public void logar(){
+        String sql = "select * from tbusuarios where login =? and senha =?;";
+        try {
+            // as linhas abaixo preparam o conteudo digitado para fazer a consulta no banco de dados.
+            //O ? vai ser substituido pelo conteudo das variáveis do form.
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, login.getText());
+            pst.setString(2, senha.getText());
+            // a linha abaixo executa a consulta ao banco de dados
+            rs = pst.executeQuery();
+            
+            if(rs.next()){
+               TelaPrincipal principal = new TelaPrincipal();
+               principal.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(null, "Usuário ou Senha incorretos :(");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     /**
      * Creates new form TelasLogin
      */
@@ -41,9 +64,9 @@ public class TelasLogin extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        login = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        senha = new javax.swing.JPasswordField();
         lblStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,8 +98,8 @@ public class TelasLogin extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))))
+                            .addComponent(login)
+                            .addComponent(senha, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -85,15 +108,15 @@ public class TelasLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin)
-                    .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                    .addComponent(btnLogin)))
         );
 
         setSize(new java.awt.Dimension(364, 191));
@@ -139,8 +162,8 @@ public class TelasLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JTextField login;
+    private javax.swing.JPasswordField senha;
     // End of variables declaration//GEN-END:variables
 }

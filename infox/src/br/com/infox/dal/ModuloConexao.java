@@ -5,7 +5,7 @@ import java.sql.*;
 public class ModuloConexao {
    // o metodo abaixo faz a conexao com o banco de dados
    public static Connection conector(){
-       java.sql.Connection conexao = null; 
+       Connection conexao = null; 
        // a linha abaixo chama o drive de coneção com o banco de dados
        String driver = "com.mysql.cj.jdbc.Driver";
        //Armazenando informações referentes ao banco de dados
