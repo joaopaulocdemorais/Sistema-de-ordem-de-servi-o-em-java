@@ -24,13 +24,16 @@ public class TelasLogin extends javax.swing.JFrame {
             //O ? vai ser substituido pelo conteudo das variáveis do form.
             pst = conexao.prepareStatement(sql);
             pst.setString(1, login.getText());
-            pst.setString(2, senha.getText());
+            String captura = new String(senha.getPassword());
+            pst.setString(2, captura);
             // a linha abaixo executa a consulta ao banco de dados
             rs = pst.executeQuery();
             
             if(rs.next()){
                TelaPrincipal principal = new TelaPrincipal();
                principal.setVisible(true);
+               this.dispose();
+               conexao.close();
             }else{
                 JOptionPane.showMessageDialog(null, "Usuário ou Senha incorretos :(");
             }
@@ -78,6 +81,11 @@ public class TelasLogin extends javax.swing.JFrame {
         jLabel2.setText("Senha");
 
         btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/off.png"))); // NOI18N
 
@@ -122,6 +130,12 @@ public class TelasLogin extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(364, 191));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        //chamando o metodo logar
+        logar();
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
