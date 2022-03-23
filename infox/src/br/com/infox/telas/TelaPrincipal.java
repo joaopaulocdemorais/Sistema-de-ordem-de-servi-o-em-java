@@ -5,6 +5,10 @@
  */
 package br.com.infox.telas;
 
+import java.text.DateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author joaop
@@ -33,20 +37,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblUsuario = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         Menu = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        menCad = new javax.swing.JMenu();
+        menCadCli = new javax.swing.JMenuItem();
+        menCadOs = new javax.swing.JMenuItem();
+        menCadUsu = new javax.swing.JMenuItem();
+        MenRel = new javax.swing.JMenu();
+        MenRelSer = new javax.swing.JMenuItem();
+        menAju = new javax.swing.JMenu();
+        menAjuSob = new javax.swing.JMenuItem();
+        menOpc = new javax.swing.JMenu();
+        menOpcSai = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("X - Sistema para Controle de OS");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
         Desktop.setLayout(DesktopLayout);
@@ -67,45 +76,55 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblData.setText("Data");
 
-        jMenu1.setText("Cadastro");
+        menCad.setText("Cadastro");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem1.setText("Cliente");
-        jMenu1.add(jMenuItem1);
+        menCadCli.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        menCadCli.setText("Cliente");
+        menCad.add(menCadCli);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem2.setText("OS");
-        jMenu1.add(jMenuItem2);
+        menCadOs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        menCadOs.setText("OS");
+        menCad.add(menCadOs);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem3.setText("Usuários");
-        jMenu1.add(jMenuItem3);
+        menCadUsu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        menCadUsu.setText("Usuários");
+        menCad.add(menCadUsu);
 
-        Menu.add(jMenu1);
+        Menu.add(menCad);
 
-        jMenu2.setText("Relatório");
+        MenRel.setText("Relatório");
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem4.setText("Serviços");
-        jMenu2.add(jMenuItem4);
+        MenRelSer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        MenRelSer.setText("Serviços");
+        MenRel.add(MenRelSer);
 
-        Menu.add(jMenu2);
+        Menu.add(MenRel);
 
-        jMenu3.setText("Ajuda");
+        menAju.setText("Ajuda");
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem5.setText("Sobre");
-        jMenu3.add(jMenuItem5);
+        menAjuSob.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.ALT_MASK));
+        menAjuSob.setText("Sobre");
+        menAju.add(menAjuSob);
 
-        Menu.add(jMenu3);
+        Menu.add(menAju);
 
-        jMenu4.setText("Opções");
+        menOpc.setText("Opções");
+        menOpc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menOpcActionPerformed(evt);
+            }
+        });
 
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem6.setText("Sair");
-        jMenu4.add(jMenuItem6);
+        menOpcSai.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        menOpcSai.setText("Sair");
+        menOpcSai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menOpcSaiActionPerformed(evt);
+            }
+        });
+        menOpc.add(menOpcSai);
 
-        Menu.add(jMenu4);
+        Menu.add(menOpc);
 
         setJMenuBar(Menu);
 
@@ -148,6 +167,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+         // as linhas abaixo subtistuem a label lblData pela atual do sistema ao inicializar o form
+         Date data = new Date();
+         DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
+         lblData.setText(formatador.format(data));
+    }//GEN-LAST:event_formWindowActivated
+
+    private void menOpcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menOpcActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menOpcActionPerformed
+
+    private void menOpcSaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menOpcSaiActionPerformed
+         int sair = JOptionPane.showConfirmDialog(null,"Tem certeza que deseja sair ? ","Atenção",JOptionPane.YES_NO_OPTION);
+    }//GEN-LAST:event_menOpcSaiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -185,20 +219,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Desktop;
+    private javax.swing.JMenu MenRel;
+    private javax.swing.JMenuItem MenRelSer;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JMenu menAju;
+    private javax.swing.JMenuItem menAjuSob;
+    private javax.swing.JMenu menCad;
+    private javax.swing.JMenuItem menCadCli;
+    private javax.swing.JMenuItem menCadOs;
+    private javax.swing.JMenuItem menCadUsu;
+    private javax.swing.JMenu menOpc;
+    private javax.swing.JMenuItem menOpcSai;
     // End of variables declaration//GEN-END:variables
 }
