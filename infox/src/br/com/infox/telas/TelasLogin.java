@@ -30,6 +30,9 @@ public class TelasLogin extends javax.swing.JFrame {
             rs = pst.executeQuery();
             
             if(rs.next()){
+                //a linha abaixo obtem o conteúdo do compo perfil da tabela usuário
+               String perfil = rs.getString(6);
+                System.out.println(perfil);
                TelaPrincipal principal = new TelaPrincipal();
                principal.setVisible(true);
                this.dispose();

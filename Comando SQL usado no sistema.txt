@@ -55,3 +55,10 @@ C.nomecli, fonecli
 from tbos as O
 inner join tbclientes as C 
 on (O.idcli = C.idcli); ----> cria uma saida dados juntando as duas tabelas.
+
+
+alter table tbusuarios add column perfil varchar(20) not null; ----------> Adiciona um campo a um tabela ja criada dentro do bando de dados.
+
+alter table tbusuarios drop column perfil; --> Remove um campo da tabela;
+
+update tbusuarios set perfil = 'admin' where iduser = 1; --> atualizando um campo de um regristro;
