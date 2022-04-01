@@ -33,7 +33,18 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             
             if (rs.next()) {
                 txtUsuNome.setText(rs.getString(2));
+                txtUsuFone.setText(rs.getString(3));
+                txtUsuLogin.setText(rs.getString(4));
+                txtUsuSenha.setText(rs.getString(5));
+                cboUsuPerfil.setSelectedItem(rs.getString(6));
             } else {
+                txtUsuNome.setText(null);
+                txtUsuFone.setText(null);
+                txtUsuLogin.setText(null);
+                txtUsuSenha.setText(null);
+                cboUsuPerfil.setSelectedItem(null);
+                JOptionPane.showMessageDialog(null, "Não existe usuário com o ID " + txtUsuId.getText() + " no banco de dados ! Por favor informe um número diferente.");
+                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao pesquisar o usuário" + e);
