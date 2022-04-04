@@ -22,7 +22,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         initComponents();
         conexao = ModuloConexao.conector();
     }
-    
+    // o metodo abaixo colsulta um usuário no banco de dados
     private void consultar(){
         String sql = "select * from tbusuarios where iduser = ?;";
         
@@ -49,6 +49,25 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao pesquisar o usuário" + e);
         }
+    }
+    // o metodo abaixo cria um novo usuário no banco de dados
+    private void adcionar (){
+        String sql = "insert into tbusuarios (iduser,usuario,fone,login,senha,perfil) values(?,?,?,?,?,?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtUsuId.getText());
+            pst.setString(2, txtUsuNome.getText());
+            pst.setString(3, txtUsuFone.getText());
+            pst.setString(4, txtUsuLogin.getText());
+            pst.setString(5, txtUsuSenha.getText());
+            pst.setString(6, cboUsuPerfil.getSelectedItem().toString());
+            //a linha abaixo atuliza a tabela usuarios com os dados do formulário
+            pst.executeUpdate();
+           
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar o usuário" + e);
+        }
+        
     }
 
     /**
@@ -102,6 +121,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsoCreate.setToolTipText("Adicionar");
         btnUsoCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsoCreate.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsoCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsoCreateActionPerformed(evt);
+            }
+        });
 
         btnUsoRead.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/read.png"))); // NOI18N
         btnUsoRead.setToolTipText("Consultar");
@@ -221,6 +245,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         consultar();
     }//GEN-LAST:event_btnUsoReadActionPerformed
+
+    private void btnUsoCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsoCreateActionPerformed
+        // TODO add your handling code here:
+        adcionar();
+    }//GEN-LAST:event_btnUsoCreateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
