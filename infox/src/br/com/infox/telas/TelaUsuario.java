@@ -62,7 +62,18 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             pst.setString(5, txtUsuSenha.getText());
             pst.setString(6, cboUsuPerfil.getSelectedItem().toString());
             //a linha abaixo atuliza a tabela usuarios com os dados do formulário
-            pst.executeUpdate();
+            int add = pst.executeUpdate();
+            
+           if(add > 0){
+               JOptionPane.showMessageDialog(null,"Usuário cadastrado com sucesso");
+                txtUsuId.setText(null);
+                txtUsuNome.setText(null);
+                txtUsuFone.setText(null);
+                txtUsuLogin.setText(null);
+                txtUsuSenha.setText(null);
+                cboUsuPerfil.setSelectedItem(null);
+           } 
+            
            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar o usuário" + e);
