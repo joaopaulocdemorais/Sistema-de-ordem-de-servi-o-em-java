@@ -42,7 +42,6 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 txtUsuFone.setText(null);
                 txtUsuLogin.setText(null);
                 txtUsuSenha.setText(null);
-                cboUsuPerfil.setSelectedItem(null);
                 JOptionPane.showMessageDialog(null, "Não existe usuário com o ID " + txtUsuId.getText() + " no banco de dados ! Por favor informe um número diferente.");
                 
             }
@@ -77,13 +76,46 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                     txtUsuFone.setText(null);
                     txtUsuLogin.setText(null);
                     txtUsuSenha.setText(null);
-                    cboUsuPerfil.setSelectedItem(null);
                } 
            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar o usuário" + e);
         }
         
+    }
+    
+    //metodo de atualização de dados. 
+    private void auterar(){
+        String sql = "update tbusuarios set usuario=?,fone=?,login=?,senha=?,perfil=? where iduser=?";
+        try {
+            pst=conexao.prepareStatement(sql);
+            pst.setString(1,txtUsuNome.getText());
+            pst.setString(2,txtUsuFone.getText());
+            pst.setString(3,txtUsuLogin.getText());
+            pst.setString(4,txtUsuSenha.getText());
+            pst.setString(5,cboUsuPerfil.getSelectedItem().toString());
+            pst.setString(6,txtUsuId.getText());
+            
+            if((txtUsuId.getText().isEmpty())||(txtUsuNome.getText().isEmpty())||(txtUsuLogin.getText().isEmpty())||(txtUsuSenha.getText().isEmpty())){
+                JOptionPane.showMessageDialog(null,"Preencha todos os compos obrigatórios");
+            }else{
+            
+               //a linha abaixo atualiza a tabela usuarios com os dados do formulário
+               int add = pst.executeUpdate();
+
+               if(add > 0){
+                   JOptionPane.showMessageDialog(null,"Dados do usuário atualizados com sucesso");
+                    txtUsuId.setText(null);
+                    txtUsuNome.setText(null);
+                    txtUsuFone.setText(null);
+                    txtUsuLogin.setText(null);
+                    txtUsuSenha.setText(null);
+               } 
+           }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar os dados do usuário" + e);
+        }
     }
 
     /**
@@ -158,6 +190,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsoUpdate.setToolTipText("Atualizar");
         btnUsoUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsoUpdate.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsoUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsoUpdateActionPerformed(evt);
+            }
+        });
 
         btnUsoDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/delete.png"))); // NOI18N
         btnUsoDelete.setToolTipText("Apagar ");
@@ -272,6 +309,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         adcionar();
     }//GEN-LAST:event_btnUsoCreateActionPerformed
+
+    private void btnUsoUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsoUpdateActionPerformed
+        // TODO add your handling code here:
+        auterar();
+    }//GEN-LAST:event_btnUsoUpdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
