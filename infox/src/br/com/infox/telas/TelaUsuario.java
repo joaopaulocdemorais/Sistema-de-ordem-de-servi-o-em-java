@@ -117,6 +117,32 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar os dados do usuário" + e);
         }
     }
+    
+    //metodo responsavel por remover dados da tabela
+    private void remover(){
+        //criando confirmação da remoção
+        int i = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover esse usuário ?","Atenção",JOptionPane.YES_NO_OPTION);
+        if(i==JOptionPane.YES_OPTION){
+            String sql ="delete from tbusuarios where iduser=?";
+            try {
+                 pst=conexao.prepareStatement(sql);
+                 pst.setString(1, txtUsuId.getText());
+                int apagado = pst.executeUpdate();
+                if (apagado > 0){
+                    JOptionPane.showMessageDialog(null, "Usuário removido com sucesso");
+                    txtUsuId.setText(null);
+                    txtUsuNome.setText(null);
+                    txtUsuFone.setText(null);
+                    txtUsuLogin.setText(null);
+                    txtUsuSenha.setText(null);
+                }
+                
+            } catch (Exception e) {
+              JOptionPane.showMessageDialog(null, "Não foi possivel remover do banco de dados" + e);  
+            }
+        }   
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -200,6 +226,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsoDelete.setToolTipText("Apagar ");
         btnUsoDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsoDelete.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsoDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsoDeleteActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("* Campos obrigatorios");
 
@@ -314,6 +345,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         auterar();
     }//GEN-LAST:event_btnUsoUpdateActionPerformed
+
+    private void btnUsoDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsoDeleteActionPerformed
+        // TODO add your handling code here:
+        remover();
+    }//GEN-LAST:event_btnUsoDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
