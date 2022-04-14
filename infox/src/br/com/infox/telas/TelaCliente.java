@@ -7,6 +7,8 @@ package br.com.infox.telas;
 import java.sql.*;
 import br.com.infox.dal.ModuloConexao;
 import javax.swing.JOptionPane;
+//abaixo importação da biblioteca rs2xml.jar
+import net.proteanit.sql.DbUtils;
 /**
  *
  * @author joaop
@@ -52,6 +54,19 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar o cliente" + e);
         }
         
+    }
+    
+    public void pesquisar_cliette(){
+        String sql = "select * from tbclientes where nomecli like ?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            //atençao ao "%" pois e a continuação do comando sql;
+            pst.setString(1, txtCliPesquisar.getText() + "%");
+            rs = pst.executeQuery();
+            // a linha abaixo usa a biblioteca rs2xml.jar
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Pesquisa indisponivel" + e);
+        }
     }
 
     /**
