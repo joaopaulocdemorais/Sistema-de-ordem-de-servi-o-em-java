@@ -56,19 +56,27 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         
     }
     
-    public void pesquisar_cliette(){
+    public void pesquisar_cliete(){
         String sql = "select * from tbclientes where nomecli like ?";
         try {
             pst = conexao.prepareStatement(sql);
             //atençao ao "%" pois e a continuação do comando sql;
             pst.setString(1, txtCliPesquisar.getText() + "%");
             rs = pst.executeQuery();
-            // a linha abaixo usa a biblioteca rs2xml.jar
+            // a linha abaixo usa a biblioteca rs2xml.jar para preencher a tebela de dados
+            tblClientes.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Pesquisa indisponivel" + e);
         }
     }
-
+    //esse metodo pega o dados da tabela e leva para os campos do formulario
+    public void setar_campos(){
+        int setar = tblClientes.getSelectedRow();
+        txtCliNome.setText(tblClientes.getModel().getValueAt(setar,1).toString());
+        txtCliEndereco.setText(tblClientes.getModel().getValueAt(setar,2).toString());
+        txtCliFone.setText(tblClientes.getModel().getValueAt(setar,3).toString());
+        txtCliEmail.setText(tblClientes.getModel().getValueAt(setar,4).toString());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,6 +136,12 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/delete.png"))); // NOI18N
         btnRemover.setPreferredSize(new java.awt.Dimension(100, 100));
 
+        txtCliPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCliPesquisarKeyReleased(evt);
+            }
+        });
+
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/pesquisar.png"))); // NOI18N
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -141,6 +155,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblClientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -226,6 +245,17 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         adcionar();
     }//GEN-LAST:event_btnAdicinionarActionPerformed
+
+    private void txtCliPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliPesquisarKeyReleased
+        // esse evento e do tipo enqunato for difitando vai atualizandi
+        pesquisar_cliete();
+        
+    }//GEN-LAST:event_txtCliPesquisarKeyReleased
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        // evente para pegar informação ao clicar com o mouse
+        setar_campos();
+    }//GEN-LAST:event_tblClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
