@@ -72,21 +72,23 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     //esse metodo pega o dados da tabela e leva para os campos do formulario
     public void setar_campos(){
         int setar = tblClientes.getSelectedRow();
+        txtCliId.setText(tblClientes.getModel().getValueAt(setar,0).toString());
         txtCliNome.setText(tblClientes.getModel().getValueAt(setar,1).toString());
         txtCliEndereco.setText(tblClientes.getModel().getValueAt(setar,2).toString());
         txtCliFone.setText(tblClientes.getModel().getValueAt(setar,3).toString());
         txtCliEmail.setText(tblClientes.getModel().getValueAt(setar,4).toString());
+        btnAdicinionar.setEnabled(false);
     }
     
     private void alterar(){
-        String sql = "update tbclientes set nomecli=?,endcli=?,fonecli=?,emailcli=? where nomecli=?";
+        String sql = "update tbclientes set nomecli=?,endcli=?,fonecli=?,emailcli=? where idcli=?";
         try {
             pst=conexao.prepareStatement(sql);
             pst.setString(1,txtCliNome.getText());
             pst.setString(2,txtCliEndereco.getText());
             pst.setString(3,txtCliFone.getText());
             pst.setString(4,txtCliEmail.getText());
-            pst.setString(5,txtCliNome.getText());
+            pst.setString(5,txtCliId.getText());
             
             if((txtCliNome.getText().isEmpty())||(txtCliFone.getText().isEmpty())){
                 JOptionPane.showMessageDialog(null,"Preencha todos os compos obrigatórios");
@@ -101,12 +103,38 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                     txtCliFone.setText(null);
                     txtCliEndereco.setText(null);
                     txtCliEmail.setText(null);
+                    btnAdicinionar.setEnabled(true);
                } 
            }
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar os dados do usuário" + e);
         }
+    }
+    
+    private void remover(){
+        //criando confirmação da remoção
+        int i = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover esse cliente ?","Atenção",JOptionPane.YES_NO_OPTION);
+        if(i==JOptionPane.YES_OPTION){
+            String sql ="delete from tbclientes where idcli=?";
+            try {
+                 pst=conexao.prepareStatement(sql);
+                 pst.setString(1, txtCliId.getText());
+                int apagado = pst.executeUpdate();
+                if (apagado > 0){
+                    JOptionPane.showMessageDialog(null, "Cliente removido com sucesso");
+                    txtCliNome.setText(null);
+                    txtCliFone.setText(null);
+                    txtCliEndereco.setText(null);
+                    txtCliEmail.setText(null);
+                    btnAdicinionar.setEnabled(true);
+                }
+                
+            } catch (Exception e) {
+              JOptionPane.showMessageDialog(null, "Não foi possivel remover do banco de dados" + e);  
+            }
+        }   
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,6 +201,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
         btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/delete.png"))); // NOI18N
         btnRemover.setPreferredSize(new java.awt.Dimension(100, 100));
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         txtCliPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -227,16 +260,14 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel7))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addComponent(btnAdicinionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(104, 104, 104)
-                                            .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(btnAdicinionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(104, 104, 104)
+                                        .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel5)
                                     .addGap(24, 24, 24)
@@ -321,6 +352,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         alterar();
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        // TODO add your handling code here:
+        remover();
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
