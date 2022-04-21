@@ -175,7 +175,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Usuários");
-        setPreferredSize(new java.awt.Dimension(864, 600));
+        setPreferredSize(new java.awt.Dimension(865, 555));
         setRequestFocusEnabled(false);
 
         jLabel1.setText("* Id");
@@ -268,7 +268,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                                                 .addComponent(jLabel1)
                                                 .addGap(21, 21, 21)
                                                 .addComponent(txtUsuId, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 46, Short.MAX_VALUE)))
+                                        .addGap(0, 47, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4))
                             .addGroup(layout.createSequentialGroup()
@@ -328,7 +328,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap(106, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 864, 555);
+        setBounds(0, 0, 865, 555);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUsoReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsoReadActionPerformed

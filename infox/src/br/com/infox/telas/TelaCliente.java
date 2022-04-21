@@ -174,7 +174,8 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Clientes");
-        setPreferredSize(new java.awt.Dimension(865, 571));
+        setPreferredSize(new java.awt.Dimension(865, 555));
+        setRequestFocusEnabled(false);
 
         jLabel1.setText("* Campos obrigatórios");
 
@@ -336,10 +337,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                     .addComponent(btnAdicinionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 867, 554);
+        setBounds(0, 0, 865, 555);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicinionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicinionarActionPerformed
