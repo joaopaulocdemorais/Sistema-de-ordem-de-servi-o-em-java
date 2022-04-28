@@ -29,10 +29,18 @@ public class TelaOS extends javax.swing.JInternalFrame {
         String sql = "select idcli as Id, nomeCli as nome, foneCli as Fone from tbclientes where nomecli like ?";
         
         try {
-            
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtCliPesquisar.getText()+"%");
+            rs=pst.executeQuery();
+            tblClientes.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possivel pesquisar o cliente" + e);
         }
+    }
+    
+    private void setar_campos(){
+        int setar = tblClientes.getSelectedRow();
+        txtCliId.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -161,6 +169,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 txtCliPesquisarActionPerformed(evt);
             }
         });
+        txtCliPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCliPesquisarKeyReleased(evt);
+            }
+        });
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/pesquisar.png"))); // NOI18N
 
@@ -179,6 +192,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 "Id", "Nome", "Fone"
             }
         ));
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblClientes);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -352,6 +370,18 @@ public class TelaOS extends javax.swing.JInternalFrame {
     private void txtOsValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOsValorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOsValorActionPerformed
+
+    private void txtCliPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliPesquisarKeyReleased
+        // TODO add your handling code here:
+        //chama o metodo pesquisar cliente
+        pesquisar_cliente();
+    }//GEN-LAST:event_txtCliPesquisarKeyReleased
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        // TODO add your handling code here:
+       //Chamando o metodo setar compos
+       setar_campos();
+    }//GEN-LAST:event_tblClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
