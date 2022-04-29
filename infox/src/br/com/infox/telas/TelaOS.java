@@ -17,12 +17,16 @@ public class TelaOS extends javax.swing.JInternalFrame {
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+    // a linha baixo cria uma variavel para armazenar um texto de acordo com o radio butom selecionado. 
+    private String tipo;
     /**
      * Creates new form TelaOS
      */
     public TelaOS() {
         initComponents();
         conexao = ModuloConexao.conector();
+        rbtOrc.setSelected(true);
+        tipo = "Orçamento";
     }
     
     private void pesquisar_cliente(){
@@ -98,6 +102,23 @@ public class TelaOS extends javax.swing.JInternalFrame {
         }
         setVerifyInputWhenFocusTarget(false);
         setVisible(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -116,9 +137,19 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(rbtOrc);
         rbtOrc.setText("Orçamento");
+        rbtOrc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtOrcActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rbtOS);
         rbtOS.setText("Ordem de Serviço");
+        rbtOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtOSActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -382,6 +413,21 @@ public class TelaOS extends javax.swing.JInternalFrame {
        //Chamando o metodo setar compos
        setar_campos();
     }//GEN-LAST:event_tblClientesMouseClicked
+
+    private void rbtOrcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtOrcActionPerformed
+        // TODO add your handling code here:
+        //atribindo um texto a varivel tipo
+        tipo = "Orçamento";
+    }//GEN-LAST:event_rbtOrcActionPerformed
+
+    private void rbtOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtOSActionPerformed
+        // TODO add your handling code here:
+        tipo = "Ordem de serviço";
+    }//GEN-LAST:event_rbtOSActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+  
+    }//GEN-LAST:event_formInternalFrameOpened
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
