@@ -46,6 +46,34 @@ public class TelaOS extends javax.swing.JInternalFrame {
         int setar = tblClientes.getSelectedRow();
         txtCliId.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
     }
+    
+    // o método abaixo cria uma nova OS
+    
+    private void emitir_os(){
+        String sql = "insert into tbos (tipo, situacao, equipamento, defeito, servico, tecnico, valor, idcli) values (?,?,?,?,?,?,?,?)";
+        
+        try {
+            
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, tipo);
+            pst.setString(2, cobOsSit.getSelectedItem().toString());
+            pst.setString(3, txtOsEquip.getText());
+            pst.setString(4, txtOsDef.getText());
+            pst.setString(5, txtOsServ.getText());
+            pst.setString(6, txtOsTec.getText());
+            pst.setString(7, txtOsValor.getText());
+            pst.setString(8, txtCliId.getText());
+            
+            //validação dos campos obrigatorios
+            if((txtCliId.getText().isEmpty()) || (txtOsEquip.getText().isEmpty()) || (txtOsDef.getText().isEmpty())){
+                JOptionPane.showMessageDialog(null,"Preencha todos os compos obrigatorios");
+            }else{
+                int adicionado = pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel cria uma nova OS" + e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -191,7 +219,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Situação");
 
-        cobOsSit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrega OK", "Orçamento REPROVADO", "Aguardando aprovação", "Aguardando peças", "Abanado pelo cliente", "Na bancada", "Retornou" }));
+        cobOsSit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Na bancada", "Entrega OK", "Orçamento REPROVADO", "Aguardando aprovação", "Aguardando peças", "Abanado pelo cliente", "Retornou" }));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
 
