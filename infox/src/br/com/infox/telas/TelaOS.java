@@ -18,7 +18,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     // a linha baixo cria uma variavel para armazenar um texto de acordo com o radio butom selecionado. 
-    private String tipo;
+     private String tipo;
     /**
      * Creates new form TelaOS
      */
@@ -69,10 +69,24 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null,"Preencha todos os compos obrigatorios");
             }else{
                 int adicionado = pst.executeUpdate();
+                if(adicionado > 0){
+                    JOptionPane.showMessageDialog(null,"OS emitida com sucesso !");
+                    limpar_campos();
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possivel cria uma nova OS" + e);
         }
+    }
+    
+    private void limpar_campos(){
+        
+        txtCliId.setText(null);
+        txtOsEquip.setText(null);
+        txtOsDef.setText(null);
+        txtOsServ.setText(null);
+        txtOsTec.setText(null);
+        txtOsValor.setText(null);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -308,6 +322,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         btnOsAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/create.png"))); // NOI18N
         btnOsAdicionar.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnOsAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOsAdicionarActionPerformed(evt);
+            }
+        });
 
         btnOsPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/read.png"))); // NOI18N
         btnOsPesquisar.setPreferredSize(new java.awt.Dimension(80, 80));
@@ -450,12 +469,17 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
     private void rbtOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtOSActionPerformed
         // TODO add your handling code here:
-        tipo = "Ordem de serviço";
+        tipo = "Ordem serviço";
     }//GEN-LAST:event_rbtOSActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
   
     }//GEN-LAST:event_formInternalFrameOpened
+
+    private void btnOsAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsAdicionarActionPerformed
+        // TODO add your handling code here:
+        emitir_os();
+    }//GEN-LAST:event_btnOsAdicionarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
