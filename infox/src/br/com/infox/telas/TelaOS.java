@@ -61,7 +61,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
             pst.setString(4, txtOsDef.getText());
             pst.setString(5, txtOsServ.getText());
             pst.setString(6, txtOsTec.getText());
-            pst.setString(7, txtOsValor.getText());
+            pst.setString(7, txtOsValor.getText().replace(",", ".")); //.replace mouda a "," pelo "."
             pst.setString(8, txtCliId.getText());
             
             //validação dos campos obrigatorios
@@ -79,6 +79,29 @@ public class TelaOS extends javax.swing.JInternalFrame {
         }
     }
     
+    //metodo para pesquisar um OS
+    
+    private void pesquisar_os(){
+    
+        // a linha abaixo cria uma caixa de entrada 
+        String num_os = JOptionPane.showInputDialog("Informe o numéro da OS");
+        String sql = "select * from tbos where os = " + num_os;
+        
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                txtOS.setText(rs.getString(1));
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "OS não cadastrada");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel realizar a pesquisa da OS" + e);
+        }
+    }
+    
     private void limpar_campos(){
         
         txtCliId.setText(null);
@@ -86,7 +109,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
         txtOsDef.setText(null);
         txtOsServ.setText(null);
         txtOsTec.setText(null);
-        txtOsValor.setText(null);
+        txtOsValor.setText("0");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -314,6 +337,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Valor total");
 
+        txtOsValor.setText("0");
         txtOsValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtOsValorActionPerformed(evt);
@@ -330,6 +354,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         btnOsPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/read.png"))); // NOI18N
         btnOsPesquisar.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnOsPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOsPesquisarActionPerformed(evt);
+            }
+        });
 
         btnOsAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/update.png"))); // NOI18N
         btnOsAlterar.setToolTipText("");
@@ -480,6 +509,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         emitir_os();
     }//GEN-LAST:event_btnOsAdicionarActionPerformed
+
+    private void btnOsPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsPesquisarActionPerformed
+        // TODO add your handling code here:
+        pesquisar_os();
+    }//GEN-LAST:event_btnOsPesquisarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
