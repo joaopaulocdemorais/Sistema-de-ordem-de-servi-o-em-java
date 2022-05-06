@@ -93,7 +93,23 @@ public class TelaOS extends javax.swing.JInternalFrame {
             
             if (rs.next()) {
                 txtOS.setText(rs.getString(1));
-                
+                txtData.setText(rs.getString(2));
+                // setando os radio buttons
+                String rbtTipo = rs.getString(3);
+                if (rbtTipo.equals("Ordem serviço")) {
+                    rbtOS.setSelected(true);
+                    tipo = "Ordem serviço";
+                } else {
+                    rbtOrc.setSelected(true);
+                    tipo = "Orçamento";
+                }
+                cobOsSit.setSelectedItem(rs.getString(4));
+                txtOsEquip.setText(rs.getString(5));
+                txtOsDef.setText(rs.getString(6));
+                txtOsServ.setText(rs.getString(7));
+                txtOsTec.setText(rs.getString(8));
+                txtOsValor.setText(rs.getString(9));
+                txtCliId.setText(rs.getString(10));
             } else {
                 JOptionPane.showMessageDialog(null, "OS não cadastrada");
             }

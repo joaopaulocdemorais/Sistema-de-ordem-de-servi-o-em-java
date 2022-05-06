@@ -61,3 +61,31 @@ C.nomecli, fonecli
 from tbos as O
 inner join tbclientes as C 
 on (O.idcli = C.idcli);
+
+select * from tbusuarios where login ="jp" and senha =123;
+
+describe tbusuarios;
+
+select * from tbusuarios;
+
+alter table tbusuarios add column perfil varchar(20) not null;
+
+alter table tbusuarios drop column perfil;
+
+update tbusuarios set perfil = 'user' where iduser = 2;
+
+select * from tbusuarios where iduser = 4;
+
+select idcli as ID, nomecli as NOME, endcli as ENDEREÇO, fonecli as FONE, emailcli as EMAIL from tbclientes;
+
+describe tbos;
+
+-- alinha abaixo alterna a tabela adicionando um campo em uma determidana posição 
+
+alter table tbos add tipo varchar(15) not null after data_os;
+
+alter table tbos add situacao varchar(20) not null after tipo;
+
+select * from tbos;
+
+describe tbos;
