@@ -110,11 +110,18 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 txtOsTec.setText(rs.getString(8));
                 txtOsValor.setText(rs.getString(9));
                 txtCliId.setText(rs.getString(10));
+                //evitando problemas
+                btnOsAdicionar.setEnabled(false);
+                txtCliPesquisar.setEnabled(false);
+                tblClientes.setVisible(false);
+               
             } else {
                 JOptionPane.showMessageDialog(null, "OS não cadastrada");
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não foi possivel realizar a pesquisa da OS" + e);
+        } catch (java.sql.SQLSyntaxErrorException e) {
+            JOptionPane.showMessageDialog(null, "OS Inválida");
+        } catch (Exception e2){
+            JOptionPane.showMessageDialog(null, "Não foi possivel pesquisar essa OS" + e2);
         }
     }
     
