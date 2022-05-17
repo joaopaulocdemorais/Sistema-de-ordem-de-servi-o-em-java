@@ -125,6 +125,66 @@ public class TelaOS extends javax.swing.JInternalFrame {
         }
     }
     
+    // metodo para alterar um OS
+    private void alterar_os(){
+        String sql = "update tbos set tipo=?, situacao=?, equipamento=?, defeito=?, servico=?, tecnico=?, valor=? where os=?";
+        
+        try {
+            
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, tipo);
+            pst.setString(2, cobOsSit.getSelectedItem().toString());
+            pst.setString(3, txtOsEquip.getText());
+            pst.setString(4, txtOsDef.getText());
+            pst.setString(5, txtOsServ.getText());
+            pst.setString(6, txtOsTec.getText());
+            pst.setString(7, txtOsValor.getText().replace(",", ".")); //.replace mouda a "," pelo "."
+            pst.setString(8, txtOS.getText());
+                        
+            //validação dos campos obrigatorios
+            if((txtCliId.getText().isEmpty()) || (txtOsEquip.getText().isEmpty()) || (txtOsDef.getText().isEmpty())){
+                JOptionPane.showMessageDialog(null,"Preencha todos os compos obrigatorios");
+            }else{
+                int adicionado = pst.executeUpdate();
+                if(adicionado > 0){
+                    JOptionPane.showMessageDialog(null,"OS alterada com sucesso !");
+                    txtOS.setText(null);
+                    txtData.setText(null);
+                    limpar_campos();
+                    btnOsAdicionar.setEnabled(true);
+                    txtCliPesquisar.setEnabled(true);
+                    tblClientes.setVisible(true);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel cria uma nova OS" + e);
+        }
+    }
+    //metodo para excluir uma os
+    private void excluir_os(){
+        
+        int confirma = JOptionPane.showConfirmDialog(null,"Tem certeza que deseja excluir essa OS ?","Atenção",JOptionPane.YES_NO_OPTION);
+        
+        if(confirma==JOptionPane.YES_OPTION){
+            String sql = "delete from tbos where os = ?";
+            try {
+                pst=conexao.prepareStatement(sql);
+                pst.setString(1, txtOS.getText());
+                int apagado = pst.executeUpdate();
+                if(apagado>0){
+                    JOptionPane.showMessageDialog(null, "OS excluida com sucesso");
+                    limpar_campos();
+                    btnOsAdicionar.setEnabled(true);
+                    txtCliPesquisar.setEnabled(true);
+                    tblClientes.setVisible(true);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Não foi possivel deletar sua OS" + e);
+            }
+        }
+        
+    }
+    
     private void limpar_campos(){
         
         txtCliId.setText(null);
@@ -386,9 +446,19 @@ public class TelaOS extends javax.swing.JInternalFrame {
         btnOsAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/update.png"))); // NOI18N
         btnOsAlterar.setToolTipText("");
         btnOsAlterar.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnOsAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOsAlterarActionPerformed(evt);
+            }
+        });
 
         btnOsExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/delete.png"))); // NOI18N
         btnOsExcluir.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnOsExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOsExcluirActionPerformed(evt);
+            }
+        });
 
         btnOsImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/printer.png"))); // NOI18N
         btnOsImprimir.setToolTipText("Imprimir OS");
@@ -537,6 +607,16 @@ public class TelaOS extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         pesquisar_os();
     }//GEN-LAST:event_btnOsPesquisarActionPerformed
+
+    private void btnOsAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsAlterarActionPerformed
+        // TODO add your handling code here:]
+        alterar_os();
+    }//GEN-LAST:event_btnOsAlterarActionPerformed
+
+    private void btnOsExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsExcluirActionPerformed
+        // TODO add your handling code here:
+        excluir_os();
+    }//GEN-LAST:event_btnOsExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
