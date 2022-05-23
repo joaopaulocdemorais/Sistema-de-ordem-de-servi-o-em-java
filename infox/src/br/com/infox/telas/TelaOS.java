@@ -75,6 +75,9 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "OS emitida com sucesso !");
                     limpar_campos();
+                    btnOsAdicionar.setEnabled(false);
+                    btnOsPesquisar.setEnabled(false);
+                    btnOsImprimir.setEnabled(true);
                 }
             }
         } catch (Exception e) {
@@ -87,7 +90,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         // a linha abaixo cria uma caixa de entrada 
         String num_os = JOptionPane.showInputDialog("Informe o numéro da OS");
-        String sql = "select * from tbos where os = " + num_os;
+        String sql = "select os,date_format(data_os, '%d/%m/%Y - %H:%i'),tipo,situacao,equipamento,defeito,servico,tecnico,valor,idcli from tbos where os=" + num_os;
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -114,9 +117,13 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 txtCliId.setText(rs.getString(10));
                 //evitando problemas
                 btnOsAdicionar.setEnabled(false);
+                btnOsPesquisar.setEnabled(false);
                 txtCliPesquisar.setEnabled(false);
                 tblClientes.setVisible(false);
-
+                //ativando demaus botões
+                btnOsAlterar.setEnabled(true);
+                btnOsExcluir.setEnabled(true);
+                btnOsImprimir.setEnabled(true);
             } else {
                 JOptionPane.showMessageDialog(null, "OS não cadastrada");
             }
@@ -193,9 +200,12 @@ public class TelaOS extends javax.swing.JInternalFrame {
         txtOsServ.setText(null);
         txtOsTec.setText(null);
         txtOsValor.setText("0");
+        
         btnOsAdicionar.setEnabled(true);
+        btnOsPesquisar.setEnabled(true);
         txtCliPesquisar.setEnabled(true);
         tblClientes.setVisible(true);
+        
         btnOsAlterar.setEnabled(false);
         btnOsExcluir.setEnabled(false);
         btnOsImprimir.setEnabled(false);
