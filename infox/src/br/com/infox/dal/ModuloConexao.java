@@ -9,8 +9,8 @@ public class ModuloConexao {
        // a linha abaixo chama o drive de coneção com o banco de dados
        String driver = "com.mysql.cj.jdbc.Driver";
        //Armazenando informações referentes ao banco de dados
-       String url = "jdbc:mysql://127.0.0.1:3306/dbinfox";
-       String user = "root";
+       String url = "jdbc:mysql://127.0.0.1:3306/dbinfox?characterEncoding=utf-8";
+       String user = "dba";
        String password = "Jopacamo@1996";
        // fazendo a conexão com o banco de dados
         try {
