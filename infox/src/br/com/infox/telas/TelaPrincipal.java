@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author joaop
@@ -258,6 +259,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             try {
                 //usando a classe japer print para prepara a impressão de um relatorio
                 JasperPrint print = JasperFillManager.fillReport("E:\\Estudos\\Sistema de ordem de serviço em java\\reports\\clientes.jasper",null,conexao);
+                // a linha abaixo exibe o reltório 
+               JasperViewer.viewReport(print,false);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Não foi possivel imprimir seu relatório" + e);
             }

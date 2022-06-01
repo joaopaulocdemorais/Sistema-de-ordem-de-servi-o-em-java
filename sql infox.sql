@@ -89,3 +89,20 @@ alter table tbos add situacao varchar(20) not null after tipo;
 select * from tbos;
 
 describe tbos;
+select os,date_format(data_os, '%d/%m/%Y - %H:%i'),tipo,situacao,equipamento,defeito,servico,valor,idcli from tbos where os=1;
+
+select * from tbclientes;  
+
+-- o sql a seguir seleciona e ordena por nome todos os clientes cadastrados
+
+select * from tbclientes order by nomecli;
+
+-- o bloco de sql a seguir faz a seleção e união de dados de duas tabelas 
+-- OSER é uma variavel que comtém os campos desejados da tabelas OS
+-- CLI é uma variavel que comtém os campos desejados da tabela Clientes
+select
+OSER.os, data_os, tipo, situacao, equipamento, valor,
+CLI.nomecli, fonecli
+from tbos as OSER
+inner join tbclientes as CLI
+on (CLI.idcli = OSER.idcli);
