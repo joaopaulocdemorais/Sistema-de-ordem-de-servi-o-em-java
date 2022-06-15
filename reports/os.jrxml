@@ -82,7 +82,7 @@
 				<text><![CDATA[Técnico: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="405" y="53" width="30" height="14" uuid="598ef72d-dacb-4897-b988-6f874d71ab11"/>
+				<reportElement x="389" y="53" width="30" height="14" uuid="598ef72d-dacb-4897-b988-6f874d71ab11"/>
 				<text><![CDATA[Valor:]]></text>
 			</staticText>
 			<textField>
