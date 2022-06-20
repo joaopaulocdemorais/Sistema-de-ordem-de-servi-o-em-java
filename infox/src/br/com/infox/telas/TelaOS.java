@@ -78,6 +78,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "OS emitida com sucesso !");
+                    recuperarOs();
                     limpar_campos();
                     btnOsAdicionar.setEnabled(false);
                     btnOsPesquisar.setEnabled(false);
@@ -235,7 +236,21 @@ public class TelaOS extends javax.swing.JInternalFrame {
         }
     }
     
+    private void recuperarOs(){
     
+        String sql = "select max(os) from tbos;";
+        
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            if(rs.next()){
+                txtOS.setText(rs.getString(1));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível recuperar o número da OS" + e);
+        }
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
