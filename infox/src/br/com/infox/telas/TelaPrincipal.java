@@ -263,7 +263,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             //imprimindo relatório com japer
             try {
                 //usando a classe japer print para prepara a impressão de um relatorio
-                JasperPrint print = JasperFillManager.fillReport("E:\\Estudos\\Sistema de ordem de serviço em java\\reports\\clientes.jasper",null,conexao);
+                JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/reports/clientes.jasper"), null,conexao);
                 // a linha abaixo exibe o reltório 
                JasperViewer.viewReport(print,false);
             } catch (Exception e) {
@@ -279,7 +279,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             //imprimindo relatório com japer
             try {
                 //usando a classe japer print para prepara a impressão de um relatorio
-                JasperPrint print = JasperFillManager.fillReport("E:\\Estudos\\Sistema de ordem de serviço em java\\reports\\servicos.jasper",null,conexao);
+                JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/reports/servicos.jasper"), null,conexao);
                 // a linha abaixo exibe o reltório 
                JasperViewer.viewReport(print,false);
             } catch (Exception e) {
